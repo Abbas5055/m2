@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+#define MAX_BITS 32 // Maximum number of bits in the binary input
+
+// Function to convert binary string to hexadecimal
+void binaryToHex(const char* binary) {
+    unsigned int decimal = 0;
+    int i;
+
+    // Convert binary string to decimal
+    for (i = 0; binary[i] != '\0'; i++) {
+        decimal = decimal * 2 + (binary[i] - '0');
+    }
+
+    // Print hexadecimal representation
+    printf("Hexadecimal: %X\n", decimal);
+}
+
+int main() {
+    char binary[MAX_BITS + 1]; // Array to hold binary input (including null terminator)
+
+    printf("Enter a binary number: ");
+    scanf("%s", binary); // Read binary input
+
+    binaryToHex(binary);
+
+    return 0;
+}
