@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+void restoring_division(int dividend, int divisor, int *quotient, int *remainder) {
+    // Ensure divisor is not zero
+    if (divisor == 0) {
+        printf("Error: Divisor cannot be zero.\n");
+        return;
+    }
+
+    // Initialize variables
+    int temp_quotient = 0;
+    int temp_remainder = 0;
+    
+    // Loop through each bit from the most significant to the least significant
+    for (int i = 31; i >= 0; i--) {
+        // Shift left the current remainder and add the next bit from dividend
+        temp_remainder = (temp_remainder << 1) | ((dividend >> i) & 1);
+
+        // If the remainder is greater than or equal to divisor, subtract divisor
+        if (temp_remainder >= divisor) {
+            temp_remainder -= divisor;
+            temp_quotient = (temp_quotient << 1) | 1; // Set the bit in quotient
+        } else {
+            temp_quotient <<= 1; // Just shift left in quotient
+        }
+    }
+
+    // Output the results
+    *quotient = temp_quotient;
+    *remainder = temp_remainder;
+}
+
+int main() {
+    int dividend = 12;
+    int divisor = 4;
+    int quotient, remainder;
+
+    restoring_division(dividend, divisor, &quotient, &remainder);
+
+    printf("Dividend: %d\n", dividend);
+    printf("Divisor: %d\n", divisor);
+    printf("Quotient: %d\n", quotient);
+    printf("Remainder: %d\n", remainder);
+
+    return 0;
+}
